@@ -14,8 +14,8 @@
 
 ### Association
 
-- has_many :items
-- has_many :oders
+- has_many :items　
+- has_many :orders
 
 
 ## items テーブル
@@ -27,7 +27,7 @@
 | condition_id        | integer    | null: false                    |
 | postage_type_id     | integer    | null: false                    | 
 | prefecture_id       | integer    | null: false                    |
-| preparation_day_id | integer    | null: false                    |
+| preparation_day_id  | integer    | null: false                    |
 | price               | integer    | null: false                    |
 | user                | references | null: false, foreign_key: true | 
 
@@ -35,7 +35,7 @@
 ### Association
 
 - belongs_to :user 
-- has_one :oders
+- has_one :order
 
 ## addresses テーブル
 
@@ -47,31 +47,32 @@
 | street        | string     | null: false                    |
 | building_name | string     |                                |
 | phone_number  | string     | null: false                    |
-| oders         | integer    | null: false, foreign_key: true |
+| order         | references | null: false, foreign_key: true |
 
 ### Association
 
-- has_one :oders
+- has_one :order
 
 
-## oders テーブル
-| Column        | Type    | Options                        |
-| ------------- | ------- | ------------------------------ |
-| item          | integer | null: false, foreign_key: true |
-| user          | integer | null: false, foreign_key: true |
+## orders テーブル
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| item          | references | null: false, foreign_key: true |
+| user          | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - belongs_to :item
+- belongs_to :address
 
 
 ## comments テーブル
 | Column  | Type       | Options                        |
 | ------- | ---------- | ------------------------------ |
 | content | string     | null: false                    |
-| user    | integer    | null: false, foreign_key: true |
-| item    | integer    | null: false, foreign_key: true |
+| user    | references | null: false, foreign_key: true |
+| item    | references | null: false, foreign_key: true |
 
 ### Association
 
