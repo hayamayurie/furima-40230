@@ -42,7 +42,7 @@
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
 | postal_code   | string     | null: false                    |
-| prefecture_id | integer    | null: false, foreign_key: true |
+| prefecture_id | integer    | null: false                    |
 | city          | string     | null: false                    |
 | street        | string     | null: false                    |
 | building_name | string     |                                |
@@ -51,7 +51,7 @@
 
 ### Association
 
-- has_one :order
+- belongs_to :order
 
 
 ## orders テーブル
@@ -64,7 +64,7 @@
 
 - belongs_to :user
 - belongs_to :item
-- belongs_to :address
+- has_one :address
 
 
 ## comments テーブル
