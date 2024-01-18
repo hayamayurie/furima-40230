@@ -14,8 +14,8 @@
 
 ### Association
 
-- has_many :items dependent: :destroy
-- has_many :oder
+- has_many :items
+- has_many :oders
 
 
 ## items テーブル
@@ -26,58 +26,45 @@
 | category_id         | integer    | null: false                    |
 | condition_id        | integer    | null: false                    |
 | postage_type_id     | integer    | null: false                    | 
-| prefectures_id      | integer    | null: false                    |
-| preparation_days_id | integer    | null: false                    |
+| prefecture_id       | integer    | null: false                    |
+| preparation_day_id | integer    | null: false                    |
 | price               | integer    | null: false                    |
 | user                | references | null: false, foreign_key: true | 
 
 
 ### Association
 
-- belongs_to :user dependent: :destroy
-- has_one :oder
+- belongs_to :user 
+- has_one :oders
 
-## address テーブル
+## addresses テーブル
 
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
 | postal_code   | string     | null: false                    |
-| prefectures   | integer    | null: false, foreign_key: true |
+| prefecture_id | integer    | null: false, foreign_key: true |
 | city          | string     | null: false                    |
 | street        | string     | null: false                    |
 | building_name | string     |                                |
 | phone_number  | string     | null: false                    |
-| oder          | integer    | null: false, foreign_key: true |
+| oders         | integer    | null: false, foreign_key: true |
 
 ### Association
 
-- has_one :oder
+- has_one :oders
 
 
-## oder テーブル
+## oders テーブル
 | Column        | Type    | Options                        |
 | ------------- | ------- | ------------------------------ |
 | item          | integer | null: false, foreign_key: true |
 | user          | integer | null: false, foreign_key: true |
-| address       | integer | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - belongs_to :item
-- belongs_to :address
 
-
-
-## images テーブル
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| image   | string     | null: false                    |
-| item    | integer    | null: false, foreign_key: true |
-
-### Association
-
-belongs_to :item
 
 ## comments テーブル
 | Column  | Type       | Options                        |
