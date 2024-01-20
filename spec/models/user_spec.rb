@@ -41,13 +41,33 @@ RSpec.describe User, type: :model do
           @user.valid?
           expect(@user.errors.full_messages).to include("Email is invalid")
         end
+        it '重複したemailが存在する場合登録できない' do
+          @user.save
+          another_user = FactoryBot.build(:user)
+          another_user.email = @user.email
+          another_user.valid?
+          expect(another_user.errors.full_messages).to include('Email has already been taken')
+        end
         it 'passwordが6文字以下では登録できない' do
           @user.password = 'test0'
           @user.valid?
           expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
         end
-        it 'passwordが半角英数字混合での入力でないと登録できない' do
-          @user.password = 'testtest'
+        it 'passwordが数字だけだと登録できない' do
+          @user.password ='11111111'
+          @user.password_confirmation = '11111111'
+          @user.valid?
+          expect(@user.errors.full_messages).to include("Password は英数字の混合である必要があります")
+        end
+        it 'passwordが英字だけだと登録できない' do
+          @user.password = 'aaaaaaaa'
+          @user.password_confirmation = 'aaaaaaaa'
+          @user.valid?
+          expect(@user.errors.full_messages).to include("Password は英数字の混合である必要があります")
+        end
+        it 'passwordが全角だと登録できない' do
+          @user.password = 'ああああああ'
+          @user.password_confirmation = 'ああああああ'
           @user.valid?
           expect(@user.errors.full_messages).to include("Password は英数字の混合である必要があります")
         end
