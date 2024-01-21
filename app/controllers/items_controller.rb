@@ -5,11 +5,11 @@ class ItemsController < ApplicationController
   end
 
   def new
-    @item = Item.new
+    @item=Item.new
   end
 
   def create
-    @item = Item.all(image_params)
+    @item = Item.create(items_params)
     if @item.save
       redirect_to '/'
     else
@@ -19,7 +19,7 @@ class ItemsController < ApplicationController
 end
 
 private
-def image_params
-  params.require(:item).permit(:name, :explanation, :category_id, :condition_id, :postage_type_id, :prefecture_id, :preparation_day_id, :price , :image ).merge(user_id: current_user.id)
-end
 
+def items_params
+  params.require(:item).permit(:name, :explanation, :category_id, :condition_id, :postage_type_id, :prefecture_id, :preparation_day_id, :price, :image ).merge(user_id: current_user.id)
+end

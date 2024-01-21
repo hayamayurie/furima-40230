@@ -9,7 +9,7 @@ class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
   belongs_to :condition
-  belongs_to :postage_type_id
-  belongs_to :prefecture_id
-  belongs_to :preparation_id
+  belongs_to :postage_type
+  belongs_to :prefecture
+  belongs_to :preparation
 end
