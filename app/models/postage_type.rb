@@ -1,4 +1,4 @@
-class Postagetype < ActiveHash::Base
+class PostageType < ActiveHash::Base
   self.data = [
     { id: 1, postage_type: '---' },
     { id: 2, postage_type: '着払い（購入者負担）' },
