@@ -16,4 +16,6 @@ class User < ApplicationRecord
   },on: :create
 
   attr_accessor :birth_date
+
+  has_many :items
 end
