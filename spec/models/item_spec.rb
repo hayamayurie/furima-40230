@@ -61,10 +61,20 @@ RSpec.describe Item, type: :model do
           @item.valid?
           expect(@item.errors.full_messages).to include("Price is not a number")
         end
-        it 'priceが¥300~¥9,999,999の間意外だと出品できない' do
+        it 'priceが¥300円以下だと出品できない' do
           @item.price = "100"
           @item.valid?
           expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
+        end
+        it 'priceが¥¥9,999,999以上だと出品できない' do
+          @item.price = "10,000,000"
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Price is not a number")
+        end
+        it 'userが紐づいていなければ出品できない' do
+          @item.user = nil 
+          @item.valid?
+          expect(@item.errors.full_messages).to include('User must exist')
         end
       end
     end
