@@ -1,12 +1,12 @@
 class Item < ApplicationRecord
   with_options numericality: { other_than: 1, message: "can't be blank" } do
-    validates :category_id,:condition_id,:postage_type_id,:prefecture_id,:preparation_day_id
+    validates :category_id, :condition_id, :postage_type_id, :prefecture_id, :preparation_day_id
   end
 
-  belongs_to :user 
+  belongs_to :user
   has_one_attached :image
 
-  validates :image, presence: true 
+  validates :image, presence: true
   validates :name, presence: true
   validates :explanation, presence: true
   validates :category_id, presence: true
