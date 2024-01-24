@@ -52,10 +52,10 @@
 
 ### Association
 
-- belongs_to :order
+- belongs_to :oder
 
 
-## orders テーブル
+## oders テーブル
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
 | item          | references | null: false, foreign_key: true |
@@ -65,7 +65,7 @@
 
 - belongs_to :user
 - belongs_to :item
-- has_one :address
+- has_one :addresses
 
 
 ## comments テーブル
