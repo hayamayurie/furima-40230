@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit]
-  before_action :set_items, only: [:show, :edit, :update,]
+  before_action :authenticate_user!, only: [:new, :edit,]
+  before_action :set_items, only: [:show, :edit, :update, :destroy]
   before_action :check_item_owner, only: [:edit,]
   
 
@@ -25,6 +25,13 @@ class ItemsController < ApplicationController
   end
 
   def edit
+  end
+
+  def destroy
+    if @item.user == current_user
+       @item.destroy
+      redirect_to root_path
+    end
   end
 
   def update
