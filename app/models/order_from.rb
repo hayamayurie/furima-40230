@@ -7,6 +7,7 @@ class OrderFrom
   validates :city, presence: true
   validates :street, presence: true
   validates :phone_number, presence: true,format: {with: /\A\d{10,11}\z/}
+  validates :token, presence: true
   
   def save
     order=Order.create(item_id: item_id, user_id: user_id)
