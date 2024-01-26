@@ -1,17 +1,22 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!, only: [:index]
 
   def index
     @item =Item.find(params[:item_id])
     @order_from =OrderFrom.new
+    if current_user == @item.user
+       redirect_to root_path
+    end
   end
 
   def create
     @item = Item.find(params[:item_id])
     @order_from = OrderFrom.new(order_params)
-    if @order_from.save
+    if @order_from.valid?
+      @order_from.save
       redirect_to root_path
     else
-      render :index
+      render :index, status: :unprocessable_entity
     end
   end
 
