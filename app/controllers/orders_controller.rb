@@ -5,9 +5,7 @@ class OrdersController < ApplicationController
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @item =Item.find(params[:item_id])
     @order_from =OrderFrom.new
-    if current_user == @item.user
-       redirect_to root_path
-    end
+    redirect_to root_path and return if current_user == @item.user || @item.order.present?
   end
 
   def create

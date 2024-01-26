@@ -8,7 +8,6 @@
     </h2>
     <div class="item-img-content">
       <%= image_tag @item.image ,class:"item-box-img" %>
-      <%#商品購入機能を実装してからif文に変え購入済みテーブルを足し、有無表示変えます%>
         <% if @item.order.present? %>
       <div class="sold-out">
         <span>Sold Out!!</span>
