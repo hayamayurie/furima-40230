@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe OrderFrom, type: :model do
   before do
+    @user = FactoryBot.create(:user)
+    @item = FactoryBot.create(:item)
     @order_from = FactoryBot.build(:order_from)
   end
 
@@ -29,12 +31,12 @@ RSpec.describe OrderFrom, type: :model do
         expect(@order_from.errors.full_messages).to include("Postal code can't be blank")
        end
        it '郵便番号に（-）がないと購入出来ない' do 
-        @order_from.postal_code = 1234567
+        @order_from.postal_code = '1234567'
         @order_from.valid?
         expect(@order_from.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
        end
        it '郵便番号通り３桁-4桁でないと購入出来ない' do 
-        @order_from.postal_code = 123-456
+        @order_from.postal_code = '123-456'
         @order_from.valid?
         expect(@order_from.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
        end
@@ -59,12 +61,17 @@ RSpec.describe OrderFrom, type: :model do
         expect(@order_from.errors.full_messages).to include("Phone number can't be blank")
        end
        it '電話番号が9桁だと購入出来ない' do 
-        @order_from.phone_number = 102938475
+        @order_from.phone_number = '10293847'
         @order_from.valid?
         expect(@order_from.errors.full_messages).to include("Phone number is invalid")
        end
-       it '電話番号が12桁だとと購入出来ない' do 
-        @order_from.phone_number = 102938475612
+       it '電話番号が12桁だと購入出来ない' do 
+        @order_from.phone_number = '102938475612'
+        @order_from.valid?
+        expect(@order_from.errors.full_messages).to include("Phone number is invalid")
+       end
+       it '電話番号が半角でないと購入出来ない' do 
+        @order_from.phone_number = '０９７４８３７４６２７８'
         @order_from.valid?
         expect(@order_from.errors.full_messages).to include("Phone number is invalid")
        end
@@ -73,6 +80,16 @@ RSpec.describe OrderFrom, type: :model do
         @order_from.valid?
         expect(@order_from.errors.full_messages).to include("Token can't be blank")
        end
+       it 'userが紐づいていなければ購入できない' do
+        @order_from.user_id = nil
+        @order_from.valid?
+        expect(@order_from.errors.full_messages).to include("User can't be blank")
+      end
+      it 'itemが紐づいていなければ購入できない' do
+        @order_from.item_id = nil
+        @order_from.valid?
+        expect(@order_from.errors.full_messages).to include("Item can't be blank")
+      end
     end
    end
   end
