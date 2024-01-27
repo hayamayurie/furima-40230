@@ -4,7 +4,7 @@ RSpec.describe OrderFrom, type: :model do
   before do
     @user = FactoryBot.create(:user)
     @item = FactoryBot.create(:item)
-    @order_from = FactoryBot.build(:order_from)
+    @order_from = FactoryBot.build(:order_from, user_id: @user, item_id: @item)
   end
 
   describe '商品購入入力' do
@@ -24,7 +24,11 @@ RSpec.describe OrderFrom, type: :model do
         @order_from.postal_code = '340-8765'
         expect(@order_from).to be_valid
       end
-      context '商品情報入力がうまくいかない時' do
+      it '建物名を記載していても購入出来る' do 
+        @order_from.building_name = '大阪'
+        expect(@order_from).to be_valid
+      end
+    context '商品情報入力がうまくいかない時' do
        it '郵便番号が空だと購入出来ない' do 
         @order_from.postal_code = ''
         @order_from.valid?
