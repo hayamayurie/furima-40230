@@ -14,6 +14,10 @@ RSpec.describe OrderFrom, type: :model do
         @order_from.phone_number = '10293847561'
         expect(@order_from).to be_valid
       end
+      it '電話番号が10桁だと購入出来る' do 
+        @order_from.phone_number = '1029384756'
+        expect(@order_from).to be_valid
+      end
       it '郵便番号通り３桁-4桁だと購入出来る' do 
         @order_from.postal_code = '340-8765'
         expect(@order_from).to be_valid
@@ -54,7 +58,7 @@ RSpec.describe OrderFrom, type: :model do
         @order_from.valid?
         expect(@order_from.errors.full_messages).to include("Phone number can't be blank")
        end
-       it '電話番号が10桁だとと購入出来ない' do 
+       it '電話番号が9桁だと購入出来ない' do 
         @order_from.phone_number = 102938475
         @order_from.valid?
         expect(@order_from.errors.full_messages).to include("Phone number is invalid")
