@@ -28,7 +28,7 @@ RSpec.describe OrderFrom, type: :model do
         @order_from.building_name = '大阪'
         expect(@order_from).to be_valid
       end
-      it '建物名がからでも購入出来る' do 
+      it '建物名が空でも購入出来る' do 
         @order_from.building_name = ''
         expect(@order_from).to be_valid
       end
