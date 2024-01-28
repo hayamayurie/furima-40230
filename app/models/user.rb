@@ -18,4 +18,5 @@ class User < ApplicationRecord
   attr_accessor :birth_date
 
   has_many :items
+  has_many :orders
 end

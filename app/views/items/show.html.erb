@@ -8,8 +8,7 @@
     </h2>
     <div class="item-img-content">
       <%= image_tag @item.image ,class:"item-box-img" %>
-      <%#商品購入機能を実装してからif文に変え購入済みテーブルを足し、有無表示変えます%>
-       <% unless @item.present? %>
+        <% if @item.order.present? %>
       <div class="sold-out">
         <span>Sold Out!!</span>
       </div>
@@ -18,26 +17,21 @@
     </div>
     <div class="item-price-box">
       <span class="item-price">
-         <%= @item.price %>
+         <%= @item.price  %>
       </span>
       <span class="item-postage">
         <%= @item.postage_type.postage_type %>
       </span>
     </div>
 
-    <% if user_signed_in? %>
-    <% if current_user.id == @item.user_id %>
-
+    <% if user_signed_in? && @item.order.blank? && current_user.id == @item.user_id %>
     <%= link_to "商品の編集", edit_item_path(@item), method: :get, class: "item-red-btn" %>
     <p class="or-text">or</p>
-    <%= link_to "削除", item_path(@item), data: {turbo_method: :delete}, class:"item-destroy" %>
+    <%= link_to "削除", item_path(@item) , data: {turbo_method: :delete}, class:"item-destroy" %>
 
-    <% else %>
-    
-    <%# 商品が売れていない場合はこちらを表示しましょう %>
-    <%= link_to "購入画面に進む", "#" ,class:"item-red-btn"%>
-    <%# //商品が売れていない場合はこちらを表示しましょう %>
-    <% end %>
+    <% elsif user_signed_in? && @item.order.blank? %>
+  
+    <%= link_to "購入画面に進む",  item_orders_path(@item), class:"item-red-btn"%>
     <% end %>
 
     <div class="item-explain-box">
