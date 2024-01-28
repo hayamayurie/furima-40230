@@ -28,6 +28,10 @@ RSpec.describe OrderFrom, type: :model do
         @order_from.building_name = '大阪'
         expect(@order_from).to be_valid
       end
+      it '建物名がからでも購入出来る' do 
+        @order_from.building_name = ''
+        expect(@order_from).to be_valid
+      end
     context '商品情報入力がうまくいかない時' do
        it '郵便番号が空だと購入出来ない' do 
         @order_from.postal_code = ''

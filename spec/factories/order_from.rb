@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :order_from do
     postal_code     { '374-9876' }
-    prefecture_id   { 0 }
+    prefecture_id   { 2 }
     city            { '市名' }
     street          { '番地' }
     building_name   { '建物名' }
