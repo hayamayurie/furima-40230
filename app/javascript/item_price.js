@@ -12,4 +12,4 @@ priceInput.addEventListener("input", () => {
 };
 
 window.addEventListener("turbo:load", price);
-window.addEventListener("turbo:render", render);
+window.addEventListener("turbo:render", price);
